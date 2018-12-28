@@ -1,3 +1,7 @@
-<p *ngFor="let c of categories">
-  {{c.categoryId}}, {{c.categoryName}}
-</p>
+<ul *ngFor="let c of categories">
+  <li>{{c.categoryId}} {{c.categoryName}}
+    <ul *ngFor="let p of c.products">
+      <li>{{p.productId}} {{p.productName}}</li>
+    </ul>
+  </li>
+</ul>

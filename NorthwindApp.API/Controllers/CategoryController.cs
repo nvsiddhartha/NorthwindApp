@@ -23,11 +23,17 @@ namespace NorthwindApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var values = await _context.Categories.Select(c => new CategoryViewModel()
+            var values = await _context.Categories
+            .Include(c => c.Products)
+            .Select(c => new CategoryViewModel()
                 {
                     CategoryId = c.CategoryId,
                     CategoryName = c.CategoryName,
-                    Description = c.Description
+                    Description = c.Description,
+                    Products = c.Products.Select(p => new ProductViewModel(){
+                        ProductId = p.ProductId,
+                        ProductName = p.ProductName
+                    }).ToList()
                 }).ToListAsync();
 
             return Ok(values);
@@ -38,12 +44,17 @@ namespace NorthwindApp.API.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var value = await _context.Categories
+            .Include(c => c.Products)
             .Where(c => c.CategoryId == id)
             .Select(c => new CategoryViewModel()
                 {
                     CategoryId = c.CategoryId,
                     CategoryName = c.CategoryName,
-                    Description = c.Description
+                    Description = c.Description,
+                    Products = c.Products.Select(p => new ProductViewModel(){
+                        ProductId = p.ProductId,
+                        ProductName = p.ProductName
+                    }).ToList()
                 }).ToListAsync();
 
             return Ok(value);
