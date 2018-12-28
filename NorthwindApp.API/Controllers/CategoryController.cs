@@ -55,7 +55,7 @@ namespace NorthwindApp.API.Controllers
                         ProductId = p.ProductId,
                         ProductName = p.ProductName
                     }).ToList()
-                }).ToListAsync();
+                }).FirstOrDefaultAsync();
 
             return Ok(value);
         }

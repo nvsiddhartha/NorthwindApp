@@ -10,6 +10,10 @@ import { ProductComponent } from './product/product.component';
 import { OrdersComponent } from './orders/orders.component';
 import { HomeComponent } from './home/home.component';
 import { appRoutes } from './routes';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { AlertifyService } from './_services/alertify.service';
+import { CategoryService } from './_services/category.service';
+import { CategoryDetailComponent } from './category/category-detail/category-detail.component';
 
 @NgModule({
    declarations: [
@@ -18,14 +22,19 @@ import { appRoutes } from './routes';
       NavComponent,
       ProductComponent,
       OrdersComponent,
-      HomeComponent
+      HomeComponent,
+      CategoryDetailComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       RouterModule.forRoot(appRoutes)
    ],
-   providers: [],
+   providers: [
+      ErrorInterceptorProvider,
+      AlertifyService,
+      CategoryService
+   ],
    bootstrap: [
       AppComponent
    ]

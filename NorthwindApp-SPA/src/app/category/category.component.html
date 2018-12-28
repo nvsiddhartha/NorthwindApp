@@ -1,7 +1,24 @@
-<ul *ngFor="let c of categories">
-  <li>{{c.categoryId}} {{c.categoryName}}
-    <ul *ngFor="let p of c.products">
-      <li>{{p.productId}} {{p.productName}}</li>
-    </ul>
-  </li>
-</ul>
+<div class="container">
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of categories">
+        <td>{{c.categoryId}}</td>
+        <td>{{c.categoryName}}</td>
+        <td>{{c.description}}</td>
+        <td>
+          <button class="btn btn-primary" [routerLink]="['/category/', c.categoryId]">
+            <i class="fa fa-pencil-square-o"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
