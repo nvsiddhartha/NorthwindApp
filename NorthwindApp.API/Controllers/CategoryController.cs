@@ -44,7 +44,7 @@ namespace NorthwindApp.API.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var value = await _context.Categories
-            .Include(c => c.Products)
+            // .Include(c => c.Products)
             .Where(c => c.CategoryId == id)
             .Select(c => new CategoryViewModel()
                 {

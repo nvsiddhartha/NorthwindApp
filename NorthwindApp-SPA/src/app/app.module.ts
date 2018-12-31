@@ -14,6 +14,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { CategoryService } from './_services/category.service';
 import { CategoryDetailComponent } from './category/category-detail/category-detail.component';
+import { CategoriesResolver } from './_resolvers/categories-resolver';
+import { CategoryDetailResolver } from './_resolvers/category-detail-resolver';
 
 @NgModule({
    declarations: [
@@ -33,7 +35,9 @@ import { CategoryDetailComponent } from './category/category-detail/category-det
    providers: [
       ErrorInterceptorProvider,
       AlertifyService,
-      CategoryService
+      CategoryService,
+      CategoriesResolver,
+      CategoryDetailResolver
    ],
    bootstrap: [
       AppComponent

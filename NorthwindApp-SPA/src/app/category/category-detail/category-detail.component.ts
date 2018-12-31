@@ -16,20 +16,11 @@ export class CategoryDetailComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private alertify: AlertifyService,
-    private categoryService: CategoryService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadCategory();
-  }
-
-  loadCategory() {
-    this.categoryService.getCategory(+this.route.snapshot.params['id']).subscribe(
-      (category: Category) => {
-        this.category = category;
-      }, error => {
-        this.alertify.error(error);
-      }
-    );
+    this.route.data.subscribe(data => {
+      this.category = data['category'];
+    });
   }
 }
