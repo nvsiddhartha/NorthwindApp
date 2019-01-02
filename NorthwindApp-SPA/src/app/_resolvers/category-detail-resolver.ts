@@ -8,7 +8,9 @@ import { CategoryService } from '../_services/category.service';
 
 @Injectable()
 export class CategoryDetailResolver implements Resolve<Category> {
-    constructor(private categoryService: CategoryService, private router: Router,
+    constructor(
+        private categoryService: CategoryService,
+        private router: Router,
         private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Category> {
