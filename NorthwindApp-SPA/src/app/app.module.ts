@@ -19,6 +19,10 @@ import { CategoriesResolver } from './_resolvers/categories-resolver';
 import { CategoryDetailResolver } from './_resolvers/category-detail-resolver';
 import { CategoryEditComponent } from './category/category-edit/category-edit.component';
 import { CategoryAddComponent } from './category/category-add/category-add.component';
+import { ProductService } from './_services/product.service';
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { ProductEditComponent } from './product/product-edit/product-edit.component';
+import { ProductAddComponent } from './product/product-add/product-add.component';
 
 @NgModule({
    declarations: [
@@ -30,7 +34,10 @@ import { CategoryAddComponent } from './category/category-add/category-add.compo
       HomeComponent,
       CategoryDetailComponent,
       CategoryEditComponent,
-      CategoryAddComponent
+      CategoryAddComponent,
+      ProductDetailComponent,
+      ProductEditComponent,
+      ProductAddComponent
    ],
    imports: [
       BrowserModule,
@@ -44,7 +51,8 @@ import { CategoryAddComponent } from './category/category-add/category-add.compo
       AlertifyService,
       CategoryService,
       CategoriesResolver,
-      CategoryDetailResolver
+      CategoryDetailResolver,
+      ProductService
    ],
    bootstrap: [
       AppComponent

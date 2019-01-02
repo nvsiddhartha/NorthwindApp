@@ -24,7 +24,6 @@ namespace NorthwindApp.API.Controllers
         public async Task<IActionResult> Get()
         {
             var values = await _context.Categories
-            .Include(c => c.Products)
             .Select(c => new CategoryViewModel()
             {
                 CategoryId = c.CategoryId,
@@ -60,6 +59,30 @@ namespace NorthwindApp.API.Controllers
             }).FirstOrDefaultAsync();
 
             return Ok(value);
+        }
+
+        [HttpGet("{id}/Products", Name = "GetProductsByCategory")]
+        public async Task<IActionResult> GetProductsByCategory(int id)
+        {
+            var values = await _context.Products
+            .Where(i => i.CategoryId == id)
+            .Select(c => new ProductViewModel()
+            {
+                ProductId = c.ProductId,
+                ProductName = c.ProductName,
+                Discontinued = c.Discontinued,
+                QuantityPerUnit = c.QuantityPerUnit,
+                ReorderLevel = c.ReorderLevel,
+                SupplierId = c.SupplierId,
+                UnitPrice = c.UnitPrice,
+                UnitsInStock = c.UnitsInStock,
+                UnitsOnOrder = c.UnitsOnOrder,
+                CategoryId = c.CategoryId,
+                CategoryName = c.Category != null ? c.Category.CategoryName : "",
+                SupplierName = c.Supplier != null ? c.Supplier.CompanyName : ""
+            }).ToListAsync();
+
+            return Ok(values);
         }
 
         [HttpPost("add")]

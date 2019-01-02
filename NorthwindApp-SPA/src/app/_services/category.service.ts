@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from '../_models/category';
-import { identifierModuleUrl } from '@angular/compiler';
+import { Product } from '../_models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,10 @@ export class CategoryService {
 
   getCategory(id: number): Observable<Category> {
     return this.http.get<Category>(this.baseUrl + '/' + id );
+  }
+
+  getProductsByCategory(id: number): Observable<Product[]> {
+    return this.http.get<Product[]>(this.baseUrl + '/' + id + '/products');
   }
 
   addCategory(model: Category): Observable<any> {

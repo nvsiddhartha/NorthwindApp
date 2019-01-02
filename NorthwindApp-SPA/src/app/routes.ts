@@ -8,9 +8,11 @@ import { CategoriesResolver } from './_resolvers/categories-resolver';
 import { CategoryDetailResolver } from './_resolvers/category-detail-resolver';
 import { CategoryEditComponent } from './category/category-edit/category-edit.component';
 import { CategoryAddComponent } from './category/category-add/category-add.component';
+import { ProductEditComponent } from './product/product-edit/product-edit.component';
+import { ProductAddComponent } from './product/product-add/product-add.component';
 
 export const appRoutes: Routes = [
-    {path: 'home', component: HomeComponent},
+    { path: 'home', component: HomeComponent },
     {
         path: '',
         runGuardsAndResolvers: 'always',
@@ -24,7 +26,16 @@ export const appRoutes: Routes = [
                 resolve: {category: CategoryDetailResolver}},
         ]
     },
-    { path: 'product', component: ProductComponent },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        children: [
+            { path: 'product', component: ProductComponent },
+            { path: 'product/new', component: ProductAddComponent },
+            { path: 'product/:id', component: ProductEditComponent },
+        ]
+    },
+    // { path: 'product', component: ProductComponent },
     { path: 'orders', component: OrdersComponent },
-    {path: '**', redirectTo: 'home', pathMatch: 'full'},
+    { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

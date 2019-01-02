@@ -1,3 +1,22 @@
-<p>
-  product works!
-</p>
+<div class="container">
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th><a class="btn btn-primary" [routerLink]="['/product/new']">Add New</a></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of products">
+        <td>{{c.productId}}</td>
+        <td>{{c.productName}}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/product/', c.productId]">
+            <i class="fa fa-pencil-square-o"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
