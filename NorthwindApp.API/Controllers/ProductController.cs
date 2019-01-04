@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NorthwindApp.API.Helpers;
 using NorthwindApp.API.Models;
+using NorthwindApp.API.Repository;
 using NorthwindApp.API.ViewModels;
 
 namespace NorthwindApp.API.Controllers
@@ -12,32 +15,43 @@ namespace NorthwindApp.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly NorthwindContext _context;
-        public ProductController(NorthwindContext context)
+        private readonly ProductRepository _repo;
+
+        public ProductController(NorthwindContext context, ProductRepository repository)
         {
             _context = context;
+            _repo = repository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]ProductParams productParams)
         {
-            var values = await _context.Products
-            .Select(c => new ProductViewModel()
-            {
-                ProductId = c.ProductId,
-                ProductName = c.ProductName,
-                Discontinued = c.Discontinued,
-                QuantityPerUnit = c.QuantityPerUnit,
-                ReorderLevel = c.ReorderLevel,
-                SupplierId = c.SupplierId,
-                UnitPrice = c.UnitPrice,
-                UnitsInStock = c.UnitsInStock,
-                UnitsOnOrder = c.UnitsOnOrder,
-                CategoryId = c.CategoryId,
-                CategoryName = c.Category != null ? c.Category.CategoryName : "",
-                SupplierName = c.Supplier != null ? c.Supplier.CompanyName : ""
-            }).ToListAsync();
+            var products = await this._repo.GetProductsAsync(productParams);
+            var model = new List<ProductViewModel>();
 
-            return Ok(values);
+            foreach (var p in products)
+            {
+                model.Add(new ProductViewModel()
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Discontinued = p.Discontinued,
+                    QuantityPerUnit = p.QuantityPerUnit,
+                    ReorderLevel = p.ReorderLevel,
+                    SupplierId = p.SupplierId,
+                    UnitPrice = p.UnitPrice,
+                    UnitsInStock = p.UnitsInStock,
+                    UnitsOnOrder = p.UnitsOnOrder,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category != null ? p.Category.CategoryName : "",
+                    SupplierName = p.Supplier != null ? p.Supplier.CompanyName : ""
+                });
+            }
+
+            Response.AddPagination(products.CurrentPage, products.PageSize,
+                products.TotalCount, products.TotalPages);
+
+            return Ok(model);
         }
 
         [HttpGet("{id}", Name = "GetProduct")]

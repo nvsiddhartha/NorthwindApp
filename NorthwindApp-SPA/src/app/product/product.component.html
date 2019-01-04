@@ -16,7 +16,7 @@
         <td>{{c.productName}}</td>
         <td>{{c.categoryName}}</td>
         <td>{{c.supplierName}}</td>
-        <td>{{c.unitPrice}}</td>
+        <td>{{c.unitPrice | number:'1.2-5' | currency}}</td>
         <td>
           <a class="btn btn-primary btn-sm" [routerLink]="['/product/', c.productId]">
             <i class="fa fa-pencil-square-o"></i>
