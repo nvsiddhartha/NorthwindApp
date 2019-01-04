@@ -27,31 +27,11 @@ namespace NorthwindApp.API.Controllers
         public async Task<IActionResult> Get([FromQuery]ProductParams productParams)
         {
             var products = await this._repo.GetProductsAsync(productParams);
-            var model = new List<ProductViewModel>();
-
-            foreach (var p in products)
-            {
-                model.Add(new ProductViewModel()
-                {
-                    ProductId = p.ProductId,
-                    ProductName = p.ProductName,
-                    Discontinued = p.Discontinued,
-                    QuantityPerUnit = p.QuantityPerUnit,
-                    ReorderLevel = p.ReorderLevel,
-                    SupplierId = p.SupplierId,
-                    UnitPrice = p.UnitPrice,
-                    UnitsInStock = p.UnitsInStock,
-                    UnitsOnOrder = p.UnitsOnOrder,
-                    CategoryId = p.CategoryId,
-                    CategoryName = p.Category != null ? p.Category.CategoryName : "",
-                    SupplierName = p.Supplier != null ? p.Supplier.CompanyName : ""
-                });
-            }
-
+            
             Response.AddPagination(products.CurrentPage, products.PageSize,
                 products.TotalCount, products.TotalPages);
 
-            return Ok(model);
+            return Ok(products.ToProductViewModelList());
         }
 
         [HttpGet("{id}", Name = "GetProduct")]
