@@ -23,6 +23,7 @@ import { ProductService } from './_services/product.service';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductAddComponent } from './product/product-add/product-add.component';
+import { SupplierService } from './_services/supplier.service';
 
 @NgModule({
    declarations: [
@@ -52,7 +53,8 @@ import { ProductAddComponent } from './product/product-add/product-add.component
       CategoryService,
       CategoriesResolver,
       CategoryDetailResolver,
-      ProductService
+      ProductService,
+      SupplierService
    ],
    bootstrap: [
       AppComponent

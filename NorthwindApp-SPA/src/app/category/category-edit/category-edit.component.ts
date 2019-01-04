@@ -16,7 +16,6 @@ export class CategoryEditComponent implements OnInit {
   categoryForm: FormGroup;
 
   constructor(
-    private http: HttpClient,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
     private router: Router,

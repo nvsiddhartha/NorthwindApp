@@ -1,7 +1,9 @@
-<p>
-  product-edit works!
-</p>
-
 <div class="container">
-  <app-product-detail [product]="product"></app-product-detail>
+  <div *ngIf="product">
+    <app-product-detail
+      [product]="product"
+      [isNew]="false"
+      (cancelEvent)="cancel($event)"
+    ></app-product-detail>
+  </div>
 </div>

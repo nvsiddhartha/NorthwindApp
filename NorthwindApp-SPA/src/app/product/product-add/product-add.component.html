@@ -1,3 +1,9 @@
-<p>
-  product-add works!
-</p>
+<div class="container">
+    <div *ngIf="product">
+      <app-product-detail
+        [product]="product"
+        [isNew]="true"
+        (cancelEvent)="cancel($event)"
+      ></app-product-detail>
+    </div>
+  </div>

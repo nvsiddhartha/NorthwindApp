@@ -4,15 +4,21 @@
       <tr>
         <th>Id</th>
         <th>Name</th>
-        <th><a class="btn btn-primary" [routerLink]="['/product/new']">Add New</a></th>
+        <th>Category</th>
+        <th>Supplier</th>
+        <th>Unit Price</th>
+        <th><a class="btn btn-primary btn-sm" [routerLink]="['/product/new']">Add New</a></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let c of products">
         <td>{{c.productId}}</td>
         <td>{{c.productName}}</td>
+        <td>{{c.categoryName}}</td>
+        <td>{{c.supplierName}}</td>
+        <td>{{c.unitPrice}}</td>
         <td>
-          <a class="btn btn-primary" [routerLink]="['/product/', c.productId]">
+          <a class="btn btn-primary btn-sm" [routerLink]="['/product/', c.productId]">
             <i class="fa fa-pencil-square-o"></i>
           </a>
         </td>

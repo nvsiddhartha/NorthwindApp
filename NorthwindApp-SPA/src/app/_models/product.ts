@@ -4,11 +4,11 @@ export interface Product {
   categoryName: string;
   categoryId: number;
   unitPrice?: number;
-  supplierId: number;
+  supplierId?: number;
   supplierName: string;
-  quantityPerUnit: string;
-  unitsInStock: number;
-  unitsOnOrder: number;
-  reorderLevel: number;
+  quantityPerUnit?: string;
+  unitsInStock?: number;
+  unitsOnOrder?: number;
+  reorderLevel?: number;
   discontinued: boolean;
 }
