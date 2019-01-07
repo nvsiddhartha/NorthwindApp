@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,15 @@ namespace NorthwindApp.API.Repository
                 .Include(p => p.Supplier)
                 .OrderBy(p => p.ProductId)
                 .AsQueryable();
+
+            if (productParams.CategoryId.HasValue && productParams.CategoryId.Value > 0)
+            {
+                products = products.Where(p => p.CategoryId == productParams.CategoryId.Value);
+            }
+            if (!string.IsNullOrEmpty(productParams.ProductName))
+            {
+                products = products.Where(p => p.ProductName.Contains(productParams.ProductName, StringComparison.CurrentCultureIgnoreCase));
+            }
 
             return await PagedList<Products>.CreateAsync(products, productParams.PageNumber, productParams.PageSize);
         }

@@ -16,7 +16,7 @@ namespace NorthwindApp.API.Helpers
             response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
 
-        public static void AddPagination(this HttpResponse response,
+        public static void AddPaginationHeader(this HttpResponse response,
             int currentPage, int itemsPerPage, int totalItems, int totalPages)
         {
             PaginationHeaders paginationHeaders = new PaginationHeaders(currentPage, itemsPerPage, totalItems, totalPages);

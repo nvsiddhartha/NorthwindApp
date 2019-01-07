@@ -1,4 +1,18 @@
 <div class="container">
+  <br>
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadProducts()" novalidate>
+    <label for="productName" class="mb-2 mr-sm-2">Product Name</label>
+    <input class="form-control mb-2 mr-sm-2" type="text" name="productName" [(ngModel)]="productParams.productName">
+    <label for="categoryId" class="mb-2 mr-sm-2">Category Id</label>
+    <select class="form-control mb-2 mr-sm-2" name="categoryId" [(ngModel)]="productParams.categoryId">
+      <option *ngFor="let c of categories" [ngValue]="c.categoryId">
+        {{c.categoryName}}
+      </option>
+    </select>
+    <button type="submit" class="btn btn-primary mb-2 mr-sm-2">Search</button>
+    <button type="button" class="btn btn-secondary mb-2" (click)="reset()">Reset</button>
+  </form>
+  <br>
   <table class="table table-condensed table-hover">
     <thead>
       <tr>
@@ -25,4 +39,10 @@
       </tr>
     </tbody>
   </table>
+  <div *ngIf="pagination" class="d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+      [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+      firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
 </div>

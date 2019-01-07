@@ -28,7 +28,7 @@ namespace NorthwindApp.API.Controllers
         {
             var products = await this._repo.GetProductsAsync(productParams);
             
-            Response.AddPagination(products.CurrentPage, products.PageSize,
+            Response.AddPaginationHeader(products.CurrentPage, products.PageSize,
                 products.TotalCount, products.TotalPages);
 
             return Ok(products.ToProductViewModelList());
