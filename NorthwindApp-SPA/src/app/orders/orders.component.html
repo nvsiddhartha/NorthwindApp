@@ -1,3 +1,48 @@
-<p>
-  orders works!
-</p>
+<div class="container">
+  <br>
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadOrders()" novalidate>
+    <!-- <label for="productName" class="mb-2 mr-sm-2">Product Name</label>
+    <input class="form-control mb-2 mr-sm-2" type="text" name="productName" [(ngModel)]="productParams.productName">
+    <label for="categoryId" class="mb-2 mr-sm-2">Category Id</label>
+    <select class="form-control mb-2 mr-sm-2" name="categoryId" [(ngModel)]="productParams.categoryId">
+      <option *ngFor="let c of categories" [ngValue]="c.categoryId">
+        {{c.categoryName}}
+      </option>
+    </select> -->
+    <button type="submit" class="btn btn-primary mb-2 mr-sm-2">Search</button>
+    <button type="button" class="btn btn-secondary mb-2" (click)="reset()">Reset</button>
+  </form>
+  <br>
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Order Date</th>
+        <th>Customer</th>
+        <th>Employee</th>
+        <th>Freight</th>
+        <th><a class="btn btn-primary btn-sm" [routerLink]="['/order/new']">Add New</a></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of orders">
+        <td>{{c.orderId}}</td>
+        <td>{{c.orderDate}}</td>
+        <td>{{c.customer}}</td>
+        <td>{{c.employee}}</td>
+        <td>{{c.freight | number:'1.2-5' | currency}}</td>
+        <td>
+          <a class="btn btn-primary btn-sm" [routerLink]="['/order/', c.orderId]">
+            <i class="fa fa-pencil-square-o"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="pagination" class="d-flex justify-content-center">
+    <pagination [maxSize]="5" [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+      [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+      firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
+</div>

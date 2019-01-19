@@ -124,6 +124,5 @@ namespace NorthwindApp.API.Controllers
 
             return Ok(c);
         }
-
     }
 }

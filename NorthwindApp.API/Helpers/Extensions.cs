@@ -56,5 +56,40 @@ namespace NorthwindApp.API.Helpers
 
             return model;
         }
+    
+        public static OrderViewModel ToOrderViewModel(this Orders p)
+        {
+            return new OrderViewModel()
+            {
+                OrderId =  p.OrderId,
+                CustomerId = p.CustomerId,
+                EmployeeId = p.EmployeeId,
+                Freight = p.Freight,
+                OrderDate = p.OrderDate,
+                RequiredDate = p.RequiredDate,
+                ShipAddress = p.ShipAddress,
+                ShipCity = p.ShipCity,
+                ShipCountry = p.ShipCountry,
+                ShipName = p.ShipName,
+                ShipPostalCode = p.ShipPostalCode,
+                ShipRegion = p.ShipRegion,
+                ShipVia = p.ShipVia,
+                ShippedDate = p.ShippedDate,
+                Employee = p.Employee != null ? p.Employee.LastName + " " + p.Employee.FirstName : "",
+                Customer = p.Customer != null ? p.Customer.CompanyName : ""
+            };
+        }
+
+        public static IEnumerable<OrderViewModel> ToOrderViewModelList(this PagedList<Orders> orders)  
+        {
+            var model = new List<OrderViewModel>();
+
+            foreach (var p in orders)
+            {
+                model.Add(p.ToOrderViewModel());
+            }
+
+            return model;
+        }  
     }
 }

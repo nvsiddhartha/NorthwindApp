@@ -29,6 +29,7 @@ namespace NorthwindApp.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<NorthwindContext>(o => o.UseSqlServer(Configuration.GetConnectionString("NorthwindConnection")));
             services.AddScoped<ProductRepository>();
+            services.AddScoped<OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
