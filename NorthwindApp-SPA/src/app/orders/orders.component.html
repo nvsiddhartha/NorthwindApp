@@ -1,9 +1,10 @@
 <div class="container">
   <br>
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadOrders()" novalidate>
-    <!-- <label for="productName" class="mb-2 mr-sm-2">Product Name</label>
-    <input class="form-control mb-2 mr-sm-2" type="text" name="productName" [(ngModel)]="productParams.productName">
-    <label for="categoryId" class="mb-2 mr-sm-2">Category Id</label>
+    <label for="orderDate" class="mb-2 mr-sm-2">Order Date</label>
+    <input class="form-control mb-2 mr-sm-2" type="text" name="orderDate" [bsConfig]="bsConfig" 
+          bsDatepicker [(ngModel)]="orderParams.orderDate">
+    <!-- <label for="categoryId" class="mb-2 mr-sm-2">Category Id</label>
     <select class="form-control mb-2 mr-sm-2" name="categoryId" [(ngModel)]="productParams.categoryId">
       <option *ngFor="let c of categories" [ngValue]="c.categoryId">
         {{c.categoryName}}
@@ -20,19 +21,21 @@
         <th>Order Date</th>
         <th>Customer</th>
         <th>Employee</th>
+        <th>Shipped To</th>
         <th>Freight</th>
-        <th><a class="btn btn-primary btn-sm" [routerLink]="['/order/new']">Add New</a></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let c of orders">
         <td>{{c.orderId}}</td>
-        <td>{{c.orderDate}}</td>
+        <td>{{c.orderDate | date:'MM/dd/yyyy'}}</td>
         <td>{{c.customer}}</td>
         <td>{{c.employee}}</td>
+        <td>{{c.shipCity}}, {{c.shipCountry}}</td>
         <td>{{c.freight | number:'1.2-5' | currency}}</td>
         <td>
-          <a class="btn btn-primary btn-sm" [routerLink]="['/order/', c.orderId]">
+          <a class="btn btn-primary btn-sm" [routerLink]="['/orders/', c.orderId]">
             <i class="fa fa-pencil-square-o"></i>
           </a>
         </td>

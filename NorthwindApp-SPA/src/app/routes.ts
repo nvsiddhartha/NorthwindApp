@@ -10,6 +10,7 @@ import { CategoryEditComponent } from './category/category-edit/category-edit.co
 import { CategoryAddComponent } from './category/category-add/category-add.component';
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductAddComponent } from './product/product-add/product-add.component';
+import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -35,7 +36,14 @@ export const appRoutes: Routes = [
             { path: 'product/:id', component: ProductEditComponent },
         ]
     },
-    // { path: 'product', component: ProductComponent },
-    { path: 'orders', component: OrdersComponent },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        children: [
+            { path: 'orders', component: OrdersComponent },
+            { path: 'orders/:id', component: OrderDetailComponent },
+        ]
+    },
+    // { path: 'orders', component: OrdersComponent },
     { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

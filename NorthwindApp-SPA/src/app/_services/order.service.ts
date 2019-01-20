@@ -48,4 +48,8 @@ export class OrderService {
         })
       );
   }
+
+  getOrder(id): Observable<Order> {
+    return this.http.get<Order>(this.baseUrl + '/' + id );
+  }
 }

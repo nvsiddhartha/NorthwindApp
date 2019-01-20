@@ -76,19 +76,40 @@ namespace NorthwindApp.API.Helpers
                 ShipVia = p.ShipVia,
                 ShippedDate = p.ShippedDate,
                 Employee = p.Employee != null ? p.Employee.LastName + " " + p.Employee.FirstName : "",
-                Customer = p.Customer != null ? p.Customer.CompanyName : ""
+                Customer = p.Customer != null ? p.Customer.CompanyName : "",
+                OrderDetails = p.OrderDetails.ToModelList()
             };
         }
 
         public static IEnumerable<OrderViewModel> ToOrderViewModelList(this PagedList<Orders> orders)  
         {
             var model = new List<OrderViewModel>();
-
             foreach (var p in orders)
             {
                 model.Add(p.ToOrderViewModel());
             }
+            return model;
+        }  
+    
+        public static OrderDetailModel ToModel(this OrderDetails d)
+        {
+            return new OrderDetailModel()
+            {
+                OrderId = d.OrderId,
+                Quantity = d.Quantity,
+                Discount = d.ProductId,
+                UnitPrice = d.UnitPrice,
+                ProductId = d.ProductId
+            };
+        }
 
+        public static ICollection<OrderDetailModel> ToModelList(this ICollection<OrderDetails> orders)  
+        {
+            var model = new List<OrderDetailModel>();
+            foreach (var p in orders)
+            {
+                model.Add(p.ToModel());
+            }
             return model;
         }  
     }

@@ -27,5 +27,17 @@ namespace NorthwindApp.API.Controllers
 
             return Ok(orders.ToOrderViewModelList());
         }
+
+        [HttpGet("{id}", Name = "GetOrder")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var order = await _repo.GetOrderAsync(id);
+
+            if(order != null) {
+                return Ok(order.ToOrderViewModel());
+            }
+
+            return NotFound();
+        }
     }
 }

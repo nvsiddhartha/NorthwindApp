@@ -1,9 +1,15 @@
 using System;
+using System.Collections.Generic;
 
 namespace NorthwindApp.API.ViewModels
 {
     public class OrderViewModel
     {
+        public OrderViewModel()
+        {
+            OrderDetails = new List<OrderDetailModel>();
+        }
+        
         public int OrderId { get; set; }
         public string CustomerId { get; set; }
         public int? EmployeeId { get; set; }
@@ -20,5 +26,7 @@ namespace NorthwindApp.API.ViewModels
         public string ShipCountry { get; set; }
         public string Employee { get; set; }
         public string Customer { get; set; }
+
+        public virtual ICollection<OrderDetailModel> OrderDetails { get; set; }
     }
 }

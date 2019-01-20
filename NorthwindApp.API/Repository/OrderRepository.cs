@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NorthwindApp.API.Helpers;
 using NorthwindApp.API.Models;
+using NorthwindApp.API.ViewModels;
 
 namespace NorthwindApp.API.Repository
 {
@@ -34,6 +35,16 @@ namespace NorthwindApp.API.Repository
             }
 
             return await PagedList<Orders>.CreateAsync(orders, ordersParams.PageNumber, ordersParams.PageSize);
+        }
+
+        public async Task<Orders> GetOrderAsync(int orderId)
+        {
+            return await _context.Orders
+                .Include(i => i.OrderDetails)
+                .Include(i => i.Employee)
+                .Include(i => i.Customer)
+                .Where(i => i.OrderId == orderId)
+                .FirstOrDefaultAsync();
         }
     }
 }

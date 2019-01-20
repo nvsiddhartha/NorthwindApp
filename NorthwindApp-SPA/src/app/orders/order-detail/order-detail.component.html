@@ -1,0 +1,31 @@
+<div class="container" *ngIf="order">
+  <br>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Order Id</label>
+    <div class="col-4">
+        {{order.orderId}}
+    </div>
+    <label class="col-2 col-form-label">Order Date</label>
+    <div class="col-4">
+      {{order.orderDate | date: 'MM/dd/yyyy'}}
+    </div>
+  </div>
+  <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Unitprice</th>
+          <th>Quantity</th>
+          <th>Discount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of order.orderDetails">
+          <td>{{c.productId}}</td>
+          <td>{{c.unitPrice | number:'1.2-5' | currency}}</td>
+          <td>{{c.quantity}}</td>
+          <td>{{c.discount | number:'1.2-5' | currency}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

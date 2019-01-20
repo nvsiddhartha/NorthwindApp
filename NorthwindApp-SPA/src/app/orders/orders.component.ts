@@ -4,6 +4,8 @@ import { Order } from '../_models/order';
 import { OrderService } from '../_services/order.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-orders',
@@ -14,12 +16,17 @@ export class OrdersComponent implements OnInit {
   pagination: Pagination;
   orderParams: any = {};
   orders: Order[];
+  bsConfig: Partial<BsDatepickerConfig>;
 
   constructor(
     private orderService: OrderService,
     private alertify: AlertifyService) { }
 
   ngOnInit() {
+    this.bsConfig = {
+      containerClass: 'theme-default',
+      dateInputFormat: 'MM/DD/YYYY'
+    };
     this.pagination = {
       currentPage: 1,
       itemsPerPage: 5,
@@ -45,6 +52,7 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders() {
+    this.orderParams.orderDate = new DatePipe('en-US').transform(this.orderParams.orderDate, 'MM/dd/yyyy');
     this.orderService.getOrders(this.pagination.currentPage, this.pagination.itemsPerPage, this.orderParams)
     .subscribe(
       data => {

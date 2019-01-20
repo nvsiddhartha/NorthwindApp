@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AppComponent } from './app.component';
 import { CategoryComponent } from './category/category.component';
@@ -25,6 +26,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductAddComponent } from './product/product-add/product-add.component';
 import { SupplierService } from './_services/supplier.service';
+import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 
 @NgModule({
    declarations: [
@@ -33,6 +35,7 @@ import { SupplierService } from './_services/supplier.service';
       NavComponent,
       ProductComponent,
       OrdersComponent,
+      OrderDetailComponent,
       HomeComponent,
       CategoryDetailComponent,
       CategoryEditComponent,
@@ -47,7 +50,8 @@ import { SupplierService } from './_services/supplier.service';
       FormsModule,
       ReactiveFormsModule,
       RouterModule.forRoot(appRoutes),
-      PaginationModule.forRoot()
+      PaginationModule.forRoot(),
+      BsDatepickerModule.forRoot()
    ],
    providers: [
       ErrorInterceptorProvider,
