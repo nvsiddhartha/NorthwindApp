@@ -80,7 +80,8 @@ namespace NorthwindApp.API.Controllers
                 CategoryId = c.CategoryId,
                 CategoryName = c.Category != null ? c.Category.CategoryName : "",
                 SupplierName = c.Supplier != null ? c.Supplier.CompanyName : ""
-            }).ToListAsync();
+            })
+            .ToListAsync();
 
             return Ok(values);
         }

@@ -11,6 +11,8 @@ import { CategoryAddComponent } from './category/category-add/category-add.compo
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductAddComponent } from './product/product-add/product-add.component';
 import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
+import { ShopComponent } from './shop/shop.component';
+import { CartComponent } from './cart/cart.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -44,6 +46,7 @@ export const appRoutes: Routes = [
             { path: 'orders/:id', component: OrderDetailComponent },
         ]
     },
-    // { path: 'orders', component: OrdersComponent },
+    { path: 'shop', component: ShopComponent },
+    { path: 'cart', component: CartComponent },
     { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

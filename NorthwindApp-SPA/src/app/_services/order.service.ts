@@ -2,16 +2,21 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product } from '../_models/product';
-import { Observable } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
-import { Order } from '../_models/order';
+import { Order, OrderDetail } from '../_models/order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   baseUrl = environment.apiUrl + 'order';
+
+  private cart = new BehaviorSubject<Order>(this.initializeOrder());
+  cartData = this.cart.asObservable();
+
+  order: Order;
 
   constructor(private http: HttpClient) {}
 
@@ -51,5 +56,57 @@ export class OrderService {
 
   getOrder(id): Observable<Order> {
     return this.http.get<Order>(this.baseUrl + '/' + id );
+  }
+
+  initializeOrder(): Order {
+    if (sessionStorage.getItem('cart') == null) {
+      this.order = {
+        customerId: '',
+        orderId: 0,
+        employeeId: null,
+        customer: null,
+        employee: null,
+        freight: null,
+        orderDate: null,
+        orderDetails: [],
+        requiredDate: null,
+        shipAddress: null,
+        shipCity: null,
+        shipCountry: null,
+        shipPostalCode: null,
+        shipRegion: null,
+        shipVia: null,
+        shippedDate: null
+      };
+    } else {
+      this.order = JSON.parse(sessionStorage.getItem('cart'));
+    }
+
+    return this.order;
+  }
+
+  addToCart(item: OrderDetail) {
+    // push item
+    let itemExists = false;
+    this.order.orderDetails.map(
+      detail => {
+        if (detail.productId === item.productId) {
+          itemExists = true;
+          detail.quantity++;
+        }
+      }
+    );
+    if (!itemExists) {
+      this.order.orderDetails.push(item);
+    }
+
+    // update sessionStorage
+    sessionStorage.setItem('cart', JSON.stringify(this.order));
+    // notify suscribers
+    this.cart.next(this.order);
+  }
+
+  getOrderInCart(): Order {
+    return this.order;
   }
 }

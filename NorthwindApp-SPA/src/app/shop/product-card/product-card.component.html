@@ -1,0 +1,11 @@
+<div class="card" style="width: 15rem; margin: 1rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.productName }}</h5>
+    <p class="card-text">
+      {{ product.unitPrice | number: "1.2-5" | currency }}
+    </p>
+    <button class="btn btn-secondary btn-sm" (click)="addToCart()">
+      <i class="fa fa-shopping-cart"></i>
+    </button>
+  </div>
+</div>

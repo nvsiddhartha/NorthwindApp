@@ -1,0 +1,18 @@
+<div class="container">
+  <br />
+  <table class="table table-condensed table-hover">
+    <tbody>
+      <tr *ngFor="let o of order.orderDetails">
+        <td>{{ o.productName }}</td>
+        <td>{{ o.unitPrice | number: "1.2-5" | currency }}</td>
+        <td>{{ o.quantity }}</td>
+        <td align="right">{{ o.unitPrice * o.quantity | number: "1.2-5" | currency}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <td colspan="4" align="right">
+          Total Price : {{ totalPrice | number: "1.2-5" | currency }}
+      </td>
+    </tfoot>
+  </table>
+</div>

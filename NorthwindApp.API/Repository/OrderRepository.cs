@@ -31,7 +31,7 @@ namespace NorthwindApp.API.Repository
             }
             if (ordersParams.OrderDate.HasValue)
             {
-                orders = orders.Where(o => o.OrderDate == ordersParams.OrderDate);
+                orders = orders.Where(o => o.OrderDate >= ordersParams.OrderDate.Value.AddDays(-10) && o.OrderDate <= ordersParams.OrderDate.Value.AddDays(10));
             }
 
             return await PagedList<Orders>.CreateAsync(orders, ordersParams.PageNumber, ordersParams.PageSize);

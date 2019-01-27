@@ -2,7 +2,7 @@
   <br>
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadOrders()" novalidate>
     <label for="orderDate" class="mb-2 mr-sm-2">Order Date</label>
-    <input class="form-control mb-2 mr-sm-2" type="text" name="orderDate" [bsConfig]="bsConfig" 
+    <input class="form-control mb-2 mr-sm-2" type="text" name="orderDate" title="Searches +/- 10 days" [bsConfig]="bsConfig" 
           bsDatepicker [(ngModel)]="orderParams.orderDate">
     <!-- <label for="categoryId" class="mb-2 mr-sm-2">Category Id</label>
     <select class="form-control mb-2 mr-sm-2" name="categoryId" [(ngModel)]="productParams.categoryId">

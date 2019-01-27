@@ -1,0 +1,16 @@
+<div class="container">
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+          <select class="form-control mb-2 mr-sm-2" name="categoryId" [(ngModel)]="categoryId" (change)="getProducts()">
+              <option *ngFor="let c of categories" [ngValue]="c.categoryId">
+                {{c.categoryName}}
+              </option>
+          </select>
+      </div>
+    </div>
+    
+    <div class="card-deck" *ngIf="products">
+      <app-product-card *ngFor="let p of products" [product]="p" (addToCartEvent)="addToCart($event)"></app-product-card>
+    </div>
+</div>

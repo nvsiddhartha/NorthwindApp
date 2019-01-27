@@ -20,6 +20,7 @@ export interface Order {
 export interface OrderDetail {
     orderId: number;
     productId: number;
+    productName: string;
     unitPrice: number;
     quantity: number;
     discount: number;
