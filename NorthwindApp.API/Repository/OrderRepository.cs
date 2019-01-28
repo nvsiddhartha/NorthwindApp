@@ -36,7 +36,7 @@ namespace NorthwindApp.API.Repository
 
             return await PagedList<Orders>.CreateAsync(orders, ordersParams.PageNumber, ordersParams.PageSize);
         }
-
+        
         public async Task<Orders> GetOrderAsync(int orderId)
         {
             return await _context.Orders
@@ -45,6 +45,15 @@ namespace NorthwindApp.API.Repository
                 .Include(i => i.Customer)
                 .Where(i => i.OrderId == orderId)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<Orders> AddOrder(Orders entity)
+        {
+            await _context.Orders.AddAsync(entity);
+
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

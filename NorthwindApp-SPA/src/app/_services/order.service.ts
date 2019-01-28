@@ -58,6 +58,11 @@ export class OrderService {
     return this.http.get<Order>(this.baseUrl + '/' + id );
   }
 
+  addOrder(): Observable<any> {
+    this.order.customerId = 'VINET';
+    return this.http.post<Order>(this.baseUrl + '/add', this.order);
+  }
+
   initializeOrder(): Order {
     if (sessionStorage.getItem('cart') == null) {
       this.order = {
@@ -108,5 +113,14 @@ export class OrderService {
 
   getOrderInCart(): Order {
     return this.order;
+  }
+
+  clearCart() {
+    if (sessionStorage.getItem('cart') != null) {
+      sessionStorage.removeItem('cart');
+    }
+    this.initializeOrder();
+    // notify suscribers
+    this.cart.next(this.order);
   }
 }

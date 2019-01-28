@@ -26,6 +26,8 @@ namespace NorthwindApp.API.Helpers
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
 
+        
+        
         public static ProductViewModel ToProductViewModel(this Products p)
         {
             return new ProductViewModel()
@@ -57,6 +59,8 @@ namespace NorthwindApp.API.Helpers
             return model;
         }
     
+        
+        
         public static OrderViewModel ToOrderViewModel(this Orders p)
         {
             return new OrderViewModel()
@@ -77,7 +81,7 @@ namespace NorthwindApp.API.Helpers
                 ShippedDate = p.ShippedDate,
                 Employee = p.Employee != null ? p.Employee.LastName + " " + p.Employee.FirstName : "",
                 Customer = p.Customer != null ? p.Customer.CompanyName : "",
-                OrderDetails = p.OrderDetails.ToModelList()
+                OrderDetails = p.OrderDetails.ToOrderDetailModelList()
             };
         }
 
@@ -91,26 +95,82 @@ namespace NorthwindApp.API.Helpers
             return model;
         }  
     
-        public static OrderDetailModel ToModel(this OrderDetails d)
+        public static OrderDetailModel ToOrderDetailModel(this OrderDetails d)
         {
             return new OrderDetailModel()
             {
                 OrderId = d.OrderId,
                 Quantity = d.Quantity,
-                Discount = d.ProductId,
+                Discount = d.Discount,
                 UnitPrice = d.UnitPrice,
                 ProductId = d.ProductId
             };
         }
 
-        public static ICollection<OrderDetailModel> ToModelList(this ICollection<OrderDetails> orders)  
+        public static ICollection<OrderDetailModel> ToOrderDetailModelList(this ICollection<OrderDetails> orders)  
         {
             var model = new List<OrderDetailModel>();
             foreach (var p in orders)
             {
-                model.Add(p.ToModel());
+                model.Add(p.ToOrderDetailModel());
+            }
+            return model;
+        }
+
+
+
+        public static Orders ToOrders(this OrderViewModel p)
+        {
+            return new Orders()
+            {
+                OrderId =  p.OrderId,
+                CustomerId = p.CustomerId,
+                EmployeeId = p.EmployeeId,
+                Freight = p.Freight,
+                OrderDate = p.OrderDate,
+                RequiredDate = p.RequiredDate,
+                ShipAddress = p.ShipAddress,
+                ShipCity = p.ShipCity,
+                ShipCountry = p.ShipCountry,
+                ShipName = p.ShipName,
+                ShipPostalCode = p.ShipPostalCode,
+                ShipRegion = p.ShipRegion,
+                ShipVia = p.ShipVia,
+                ShippedDate = p.ShippedDate,
+                OrderDetails = p.OrderDetails.ToOrderDetailsList()
+            };
+        }
+
+        public static IEnumerable<Orders> ToOrdersList(this ICollection<OrderViewModel> orders)  
+        {
+            var model = new List<Orders>();
+            foreach (var p in orders)
+            {
+                model.Add(p.ToOrders());
             }
             return model;
         }  
+    
+        public static OrderDetails ToOrderDetails(this OrderDetailModel d)
+        {
+            return new OrderDetails()
+            {
+                OrderId = d.OrderId,
+                Quantity = d.Quantity,
+                Discount = d.Discount,
+                UnitPrice = d.UnitPrice,
+                ProductId = d.ProductId
+            };
+        }
+
+        public static ICollection<OrderDetails> ToOrderDetailsList(this ICollection<OrderDetailModel> orders)  
+        {
+            var model = new List<OrderDetails>();
+            foreach (var p in orders)
+            {
+                model.Add(p.ToOrderDetails());
+            }
+            return model;
+        }
     }
 }

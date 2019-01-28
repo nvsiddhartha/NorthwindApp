@@ -1,8 +1,10 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NorthwindApp.API.Helpers;
 using NorthwindApp.API.Models;
 using NorthwindApp.API.Repository;
+using NorthwindApp.API.ViewModels;
 
 namespace NorthwindApp.API.Controllers
 {
@@ -38,6 +40,26 @@ namespace NorthwindApp.API.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromBody] OrderViewModel c)
+        {
+            c.OrderDate = DateTime.Now;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var entity = c.ToOrders();
+            var order = await _repo.AddOrder(entity);
+
+            if (order != null)
+            {
+                return Ok(order.ToOrderViewModel());
+            }
+
+            return BadRequest();
         }
     }
 }
