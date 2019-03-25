@@ -18,15 +18,34 @@ export class ErrorInterceptor implements HttpInterceptor {
                         return throwError(applicationError);
                     }
                     const serverError = error.error;
-                    let modalStateErrors = '';
-                    if (serverError && typeof serverError === 'object') {
-                        for (const key in serverError) {
-                            if (serverError[key]) {
-                                modalStateErrors += serverError[key] + '\n';
+                    let modelStateErrors = '';
+                    if (serverError) {
+                      if (error.status === 400) {
+                        // handle validation error
+                        for (const f in serverError) {
+                          if (f) {
+                            if (typeof serverError[f] === 'object') {
+                              for (const key in serverError[f]) {
+                                if (key) {
+                                  console.log(serverError[f][key]);
+                                  modelStateErrors += serverError[f][key] + '\n';
+                                }
+                              }
                             }
+                          }
                         }
+                      }
                     }
-                    return throwError(modalStateErrors || serverError || 'Server Error');
+                    // const serverError = error.error;
+                    // let modelStateErrors = '';
+                    // if (serverError && typeof serverError === 'object') {
+                    //     for (const key in serverError) {
+                    //         if (serverError[key]) {
+                    //             modelStateErrors += serverError[key] + '\n';
+                    //         }
+                    //     }
+                    // }
+                    return throwError(modelStateErrors || serverError || 'Server Error');
                 }
             })
         );

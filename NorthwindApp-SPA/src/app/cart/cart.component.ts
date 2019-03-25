@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
     });
   }
 
-  add() {
+  placeOrder() {
     this.orderService.addOrder().subscribe(
       data => {
         console.log(data);

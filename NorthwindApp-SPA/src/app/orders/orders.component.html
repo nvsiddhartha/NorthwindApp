@@ -32,7 +32,7 @@
         <td>{{c.orderDate | date:'MM/dd/yyyy'}}</td>
         <td>{{c.customer}}</td>
         <td>{{c.employee}}</td>
-        <td>{{c.shipCity}}, {{c.shipCountry}}</td>
+        <td><span *ngIf="c.shipCity">{{c.shipCity}}, {{c.shipCountry}}</span></td>
         <td>{{c.freight | number:'1.2-5' | currency}}</td>
         <td>
           <a class="btn btn-primary btn-sm" [routerLink]="['/orders/', c.orderId]">

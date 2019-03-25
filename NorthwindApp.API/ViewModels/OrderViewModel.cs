@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NorthwindApp.API.ViewModels
 {
@@ -11,8 +12,12 @@ namespace NorthwindApp.API.ViewModels
         }
         
         public int OrderId { get; set; }
+
+        [Required(ErrorMessage="Customer is required")]
         public string CustomerId { get; set; }
         public int? EmployeeId { get; set; }
+
+        [Required(ErrorMessage="Order date is required")]
         public DateTime? OrderDate { get; set; }
         public DateTime? RequiredDate { get; set; }
         public DateTime? ShippedDate { get; set; }

@@ -45,7 +45,7 @@ namespace NorthwindApp.API.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] OrderViewModel c)
         {
-            c.OrderDate = DateTime.Now;
+            // c.OrderDate = DateTime.Now;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
