@@ -59,7 +59,8 @@ export class OrderService {
   }
 
   addOrder(): Observable<any> {
-    // this.order.customerId = 'VINET';
+    this.order.customerId = 'VINET';
+    this.order.orderDate = new Date();
     return this.http.post<Order>(this.baseUrl + '/add', this.order);
   }
 

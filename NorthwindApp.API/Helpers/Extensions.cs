@@ -26,8 +26,6 @@ namespace NorthwindApp.API.Helpers
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
 
-        
-        
         public static ProductViewModel ToProductViewModel(this Products p)
         {
             return new ProductViewModel()
@@ -59,8 +57,6 @@ namespace NorthwindApp.API.Helpers
             return model;
         }
     
-        
-        
         public static OrderViewModel ToOrderViewModel(this Orders p)
         {
             return new OrderViewModel()
@@ -116,8 +112,6 @@ namespace NorthwindApp.API.Helpers
             }
             return model;
         }
-
-
 
         public static Orders ToOrders(this OrderViewModel p)
         {

@@ -20,13 +20,10 @@ export const appRoutes: Routes = [
         path: '',
         runGuardsAndResolvers: 'always',
         children: [
-            {path: 'category', component: CategoryComponent,
-                resolve: {categories: CategoriesResolver}},
+            {path: 'category', component: CategoryComponent, resolve: {categories: CategoriesResolver}},
             {path: 'category/new', component: CategoryAddComponent},
-            {path: 'category/:id', component: CategoryDetailComponent,
-                resolve: {category: CategoryDetailResolver}},
-            {path: 'category/edit/:id', component: CategoryEditComponent,
-                resolve: {category: CategoryDetailResolver}},
+            {path: 'category/:id', component: CategoryDetailComponent, resolve: {category: CategoryDetailResolver}},
+            {path: 'category/edit/:id', component: CategoryEditComponent, resolve: {category: CategoryDetailResolver}},
         ]
     },
     {
