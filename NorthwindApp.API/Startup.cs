@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using NorthwindApp.API.Helpers;
 using Microsoft.AspNetCore.Http;
 using NorthwindApp.API.Repository;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace NorthwindApp.API
 {
@@ -27,7 +28,9 @@ namespace NorthwindApp.API
         {
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<NorthwindContext>(o => o.UseSqlServer(Configuration.GetConnectionString("NorthwindConnection")));
+            services.AddDbContext<NorthwindContext>(
+                o => o.UseSqlServer(Configuration.GetConnectionString("NorthwindConnection"))
+                .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.IncludeIgnoredWarning)));
             services.AddScoped<ProductRepository>();
             services.AddScoped<OrderRepository>();
         }
@@ -58,7 +61,14 @@ namespace NorthwindApp.API
 
             // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            app.UseMvc();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc(routes => {
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Fallback", action = "Index" }
+                );
+            });
         }
     }
 }
