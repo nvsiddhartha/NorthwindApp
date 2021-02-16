@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgRedux, NgReduxModule } from '@angular-redux/store';
+import { IAppState, rootReducer, INITIAL_STATE } from './store';
 
 import { AppComponent } from './app.component';
 import { CategoryComponent } from './category/category.component';
@@ -57,7 +59,8 @@ import { CartComponent } from './cart/cart.component';
       ReactiveFormsModule,
       RouterModule.forRoot(appRoutes),
       PaginationModule.forRoot(),
-      BsDatepickerModule.forRoot()
+      BsDatepickerModule.forRoot(),
+      NgReduxModule
    ],
    providers: [
       ErrorInterceptorProvider,
@@ -72,4 +75,8 @@ import { CartComponent } from './cart/cart.component';
       AppComponent
    ]
 })
-export class AppModule { }
+export class AppModule {
+   constructor(ngRedux: NgRedux<IAppState>) {
+      ngRedux.configureStore(rootReducer, INITIAL_STATE);
+   }
+ }

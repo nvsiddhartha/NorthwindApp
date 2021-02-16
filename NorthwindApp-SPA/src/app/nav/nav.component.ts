@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderService } from '../_services/order.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'app-nav',
@@ -9,8 +10,13 @@ import { Subscription } from 'rxjs';
 })
 export class NavComponent implements OnInit, OnDestroy {
 
+  @select() order$;
   subscription: Subscription;
   noOfItems: string;
+
+  get noOfItems$(): Observable<number> {
+    return this.orderService.noOfItems$;
+  }
 
   constructor(private orderService: OrderService) { }
 

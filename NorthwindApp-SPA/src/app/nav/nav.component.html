@@ -15,11 +15,26 @@
     </li>
   </ul>
   <ul class="nav justify-content-end">
-    <li class="nav-item">
+
+<!--     <li class="nav-item">
       <a class="btn btn-secondary" [routerLink]="['/cart']">
         <i class="fa fa-shopping-cart" style='font-size:24px'></i>
         <span style="margin-left: .5rem;" class="badge badge-light">{{noOfItems}}</span>
       </a>
+    </li> -->
+
+    <li class="nav-item" style="margin-left: .5rem;">
+      <a class="btn btn-secondary" [routerLink]="['/cart']">
+        <i class="fa fa-shopping-cart" style='font-size:24px'></i>
+        <span style="margin-left: .5rem;" class="badge badge-light">{{noOfItems$ |async}}</span>
+      </a>
     </li>
+
+<!--     <li class="nav-item" style="margin-left: .5rem;">
+      <a class="btn btn-secondary" [routerLink]="['/cart']">
+        <i class="fa fa-shopping-cart" style='font-size:24px'></i>
+        <span style="margin-left: .5rem; background-color: red;" class="badge badge-light">{{(order$ | async)?.orderDetails?.length }}</span>
+      </a>
+    </li> -->
   </ul>
 </nav>

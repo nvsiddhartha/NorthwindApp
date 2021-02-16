@@ -13,10 +13,16 @@ import { Order, OrderDetail } from '../_models/order';
 export class OrderService {
   baseUrl = environment.apiUrl + 'order';
 
-  private cart = new BehaviorSubject<Order>(this.initializeOrder());
-  cartData = this.cart.asObservable();
+  private _cartDataSource = new BehaviorSubject<Order>(this.initializeOrder());
+  cartData = this._cartDataSource.asObservable();
 
-  order: Order;
+  private _noOfItems$ = new BehaviorSubject<number>(this.getNoOfItemsInCart());
+  get noOfItems$(): Observable<number> {
+    return this._noOfItems$.asObservable();
+  }
+
+  private order: Order;
+  private noOfItems: number;
 
   constructor(private http: HttpClient) {}
 
@@ -91,6 +97,21 @@ export class OrderService {
     return this.order;
   }
 
+  getNoOfItemsInCart(): number {
+    if (sessionStorage.getItem('cart') == null) {
+      return 0;
+    } else {
+      this.order = JSON.parse(sessionStorage.getItem('cart'));
+      let ct = 0;
+        this.order.orderDetails.map(
+          o => {
+            ct += o.quantity;
+          }
+        );
+        return ct;
+    }
+  }
+
   addToCart(item: OrderDetail) {
     // push item
     let itemExists = false;
@@ -109,7 +130,8 @@ export class OrderService {
     // update sessionStorage
     sessionStorage.setItem('cart', JSON.stringify(this.order));
     // notify suscribers
-    this.cart.next(this.order);
+    this._cartDataSource.next(this.order);
+    this._noOfItems$.next(this.getNoOfItemsInCart());
   }
 
   getOrderInCart(): Order {
@@ -122,6 +144,8 @@ export class OrderService {
     }
     this.initializeOrder();
     // notify suscribers
-    this.cart.next(this.order);
+    this._cartDataSource.next(this.order);
+
+    this._noOfItems$.next(0);
   }
 }
